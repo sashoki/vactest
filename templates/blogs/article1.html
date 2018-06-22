@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% load i18n mptt_tags %}
+
+{% block article %}
+    {% if article.author_id == user.id %}
+        <a class="" href="/articles/{{ article.id }}/edit/">Edit article</a>
+    {% endif %}
+    <hr>
+    <div>
+        <ul class="right"><h4>Из категории: <a href="/category/get/{{ article.category.id }}/"> {{ article.category }}</a></h4>
+            <h4><a href="{% url 'articles' %}">{{ article.article_title }}</a></h4>
+                <div>
+                    {% if article.article_img %}
+                        <img src="{{ MEDIA_URL }}{{ article.article_img.url }}" width="700" height="500"  />
+                    {% endif %}
+                    <p>{% autoescape off %}{{ article.article_text }}{% endautoescape off %}</p>
+                </div>
+
+                <div>
+                    {% if article.article_video %}
+                        <iframe width="560" height="315" src="{{ article.article_video }}" frameborder="0" allowfullscreen></iframe>
+                    {% endif %}
+                </div>
+            <h5>{{ article.article_date }}</h5>
+            <h4>Author: {{ article.author }}</h4>
+            <!-- <a href="/author/{{ article.author_id }}/">Author: {{ article.author }}</a> -->
+            <hr>
+        </ul>
+    </div>
+
+
+    <div class="large-offset-1 large-8 columns">
+        <p>Кометрарии: {{ n_comments }} </p>
+        <div class="large-12 columns">
+            {% for comment in comments %}
+                <p>{{ comment.comments_text }}</p>
+                <h6 align="right">{{ comment.comments_author.username }} - {{ comment.comments_date }}</h6>
+                <hr>
+        </div>
+
+        <div height="1" style=" border-bottom: 1px dotted #000033;" >
+
+            {% endfor %}
+            {% if username %}
+                <form action="/articles/addcomment/{{ article.id }}/" method="post">
+                {% csrf_token %}
+                {{ form }}
+                    <input type="submit" class="button" value="Добавить коментарий">
+                </form>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}

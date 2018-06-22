@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+{% load embed_video_tags %}
+{% load staticfiles %}
+{% load i18n mptt_tags %}
+
+{% block article_cat %}
+
+<ul class="right"><h4> Категория: {{ category }}</h4></ul>
+<div class="large-12 columns">
+    {% for article in category_articles %}
+        <h6>Дата публикации: {{ article.article_date }}</h6>
+        <h4><a href="{% url 'article' article.id %}">{{ article.article_title }}</a></h4>
+                        <!--<div class="col-md-4">
+                        {% if article.article_img %}
+                            <img src="{{ MEDIA_URL }}{{ article.article_img.url }}" width="300" height="300" class="img-responsive" />
+                        </div>
+                        {% endif %}
+                        <div class="col-md-12">
+                            <p>{% autoescape off %}{{ article.article_text }}{% endautoescape off %}</p>
+                        </div>-->
+        <p><a href="/articles/addlike/{{ article.id }}/"><img src="{% static 'images/like.jpg' %}" width="25px" height="25px"></a>{{ article.article_like }}</p>
+        <hr>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

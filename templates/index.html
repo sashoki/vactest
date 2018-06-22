@@ -1,0 +1,106 @@
+{% load staticfiles %}
+
+
+<!DOCTYPE html>
+<html lang="ru">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <title>vactest</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="sashoki" content="">
+
+    <title>Shop</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/shop-homepage.css' %}" rel="stylesheet">
+    <link href="{% static 'css/shop-item.css' %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+
+
+    <!-- React.js -->
+    <script src="http://fb.me/react-0.10.0.min.js"></script>
+
+
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Central</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a href="/author/{{ user.id }}/">Author blog: {{ username }}</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="/auth/signup/">Registration</a>
+            </li>
+            <li class="nav-item">
+                {% if username %}
+                    <a class="nav-link" href="/auth/logout/">logaute({{ username }})</a>
+                {% else %}
+                    <a class="nav-link" href="/auth/login/">Login</a>
+                {% endif %}
+            </li>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-12">
+            <hr>
+
+            {% block login %}{% endblock %}
+            {% block register %}{% endblock %}
+            {% block content %}{% endblock %}
+            {% block articles %}{% endblock %}
+            {% block article %}{% endblock %}
+            {% block post_edit %}{% endblock %}
+            {% block article_cat %}{% endblock %}
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; sashoki 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  </body>
+
+</html>

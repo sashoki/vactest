@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+{% load staticfiles %}
+{% load i18n mptt_tags %}
+
+{% block articles %}
+    {% for article in articles %}
+        <div class="blog-post">
+            <h3><a href="/articles/get/{{ article.id }}/">{{ article.article_title }}</a></h3>
+            <h4><small>{{ article.article_date }}</small></h4>
+            {% if article.article_img %}
+                <p><img class="thumbnail" src="{{ MEDIA_URL }}{{ article.article_img.url }}"></p>
+            {% else %}
+                <img class="thumb" src="http://placehold.it/850x350">
+            {% endif %}
+
+            <p>{% autoescape off %}{{ article.article_text_min }}{% endautoescape off %}</p>
+            <div>
+                <ul>
+                    <h4>Author: {{ article.author }}</h4>
+                    <!-- <li><a href="/author/{{ article.author_id }}/">Author: {{ article.author }}</a></li> -->
+                </ul>
+            </div>
+        </div>
+        <hr>
+
+    {% endfor %}
+
+{% endblock %}
